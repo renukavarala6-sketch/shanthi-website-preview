@@ -7136,15 +7136,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const start = pageStarts[currentPage];
     const end = Math.min(start + 7, cards.length);
 
-    cards.forEach(function (card, index) {
-      card.classList.remove("product-hidden");
-
-      if (index < start || index >= end) {
-        card.style.setProperty("display", "none", "important");
-      } else {
-        card.style.removeProperty("display");
-      }
-    });
+  cards.forEach(function (card) {
+  card.hidden = false;
+  card.classList.remove("product-hidden");
+  card.style.removeProperty("display");
+});
 
     prevButton.disabled = currentPage === 0;
     nextButton.disabled = end >= cards.length;
