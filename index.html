@@ -7269,7 +7269,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
-<!-- FINAL PRODUCT CATEGORY FILTER START -->
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   const grid = document.getElementById("productGrid");
@@ -7279,11 +7278,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let activeCategory = null;
 
-  const cards = Array.from(
-    grid.querySelectorAll(".product-card")
-  );
-
   function applyProductFilters() {
+    const cards = grid.querySelectorAll(".product-card");
+
     const searchText = searchInput
       ? searchInput.value.trim().toLowerCase()
       : "";
@@ -7291,28 +7288,18 @@ document.addEventListener("DOMContentLoaded", function () {
     cards.forEach(function (card) {
       const categoryMatch =
         activeCategory !== null &&
-        (
-          activeCategory === "all" ||
-          card.dataset.category === activeCategory
-        );
+        (activeCategory === "all" ||
+         card.dataset.category === activeCategory);
 
       const searchMatch =
         card.textContent.toLowerCase().includes(searchText);
 
       card.hidden = !(categoryMatch && searchMatch);
-      card.style.removeProperty("display");
     });
   }
 
-  // Hide all products when the page first opens
-  applyProductFilters();
-
-  // Handle category selection
   document.addEventListener("click", function (event) {
-    const target = event.target instanceof Element
-      ? event.target
-      : null;
-
+    const target = event.target instanceof Element ? event.target : null;
     const button = target
       ? target.closest(".products-dropdown button[data-category]")
       : null;
@@ -7320,25 +7307,27 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!button) return;
 
     activeCategory = button.dataset.category;
-document.getElementById("products").scrollIntoView({
-  behavior: "smooth",
-  block: "start"
-});
-    if (searchInput) {
-      searchInput.value = "";
-    }
+
+    if (searchInput) searchInput.value = "";
 
     applyProductFilters();
+
+    document.getElementById("products").scrollIntoView({
+      behavior: "smooth"
+    });
   });
 
-  // Search only inside the selected category
   if (searchInput) {
     searchInput.addEventListener("input", applyProductFilters);
   }
+
+  // Hide products initially and apply filters after cards are created.
+  const observer = new MutationObserver(applyProductFilters);
+  observer.observe(grid, { childList: true });
+
+  applyProductFilters();
 });
 </script>
-<!-- FINAL PRODUCT CATEGORY FILTER END -->
-
 
 
 
