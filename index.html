@@ -6733,6 +6733,7 @@ modal.classList.add("show");
 document.querySelectorAll("#productGrid .product-card").forEach(function(card) {
   card.hidden = true;
 });
+  let selectedCategory = null;
 function scrollProductGallery(direction) {
   const imageWidth = modalThumbnails.clientWidth;
 
@@ -7183,9 +7184,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const cards = grid.querySelectorAll(".product-card");
 
   cards.forEach(function (card) {
-    card.classList.remove("product-hidden");
-    card.style.removeProperty("display");
-  });
+  card.hidden = true;
+  card.classList.remove("product-hidden");
+  card.style.removeProperty("display");
+});
 
   // Hide old pagination arrows
   const controls = document.querySelector(".product-scroll-controls");
