@@ -7111,96 +7111,9 @@ document.addEventListener("keydown", function(event) {
 </script>
 
 
-<!-- NEW PRODUCT PAGINATION FUNCTION START -->
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  const grid = document.getElementById("productGrid");
-  const prevButton = document.getElementById("productScrollLeft");
-  const nextButton = document.getElementById("productScrollRight");
-
-  if (!grid || !prevButton || !nextButton) return;
-
-  const pageStarts = [0, 6, 12];
-  let currentPage = 0;
-  let cards = [];
-
-  function updateCards() {
-    cards = Array.from(grid.querySelectorAll(".product-card"));
-    showProductPage();
-  }
-
-  function showProductPage() {
-    if (cards.length === 0) return;
-
-    const start = pageStarts[currentPage];
-    const end = Math.min(start + 7, cards.length);
-
-  cards.forEach(function (card) {
-  card.hidden = false;
-  card.classList.remove("product-hidden");
-  card.style.removeProperty("display");
-});
-
-    prevButton.disabled = currentPage === 0;
-    nextButton.disabled = end >= cards.length;
-  }
-
-  prevButton.addEventListener("click", function () {
-    if (currentPage > 0) {
-      currentPage--;
-      showProductPage();
-    }
-  });
-
-  nextButton.addEventListener("click", function () {
-    if (currentPage < pageStarts.length - 1) {
-      currentPage++;
-      showProductPage();
-    }
-  });
-
-  const observer = new MutationObserver(updateCards);
-  observer.observe(grid, { childList: true });
-
-  updateCards();
-});
-</script>
-<!-- NEW PRODUCT PAGINATION FUNCTION END -->
 
 
 
-<!-- NEW SHOW ALL 16 PRODUCTS START -->
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  const grid = document.getElementById("productGrid");
-
-  if (!grid) return;
-
-  // Display all 16 product cards
-  const cards = grid.querySelectorAll(".product-card");
-
-  cards.forEach(function (card) {
-  card.hidden = false;
-  card.classList.remove("product-hidden");
-  card.style.removeProperty("display");
-});
-
-  // Hide old pagination arrows
-  const controls = document.querySelector(".product-scroll-controls");
-
-  if (controls) {
-    controls.style.display = "none";
-  }
-
-  // Hide old View All button
-  const viewAllButton = document.getElementById("viewAllProductsBtn");
-
-  if (viewAllButton) {
-    viewAllButton.style.display = "none";
-  }
-});
-</script>
-<!-- NEW SHOW ALL 16 PRODUCTS END -->
 
 
 <!-- NEW PRODUCT HEADING SLIDESHOW SCRIPT START -->
