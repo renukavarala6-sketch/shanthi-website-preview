@@ -6552,28 +6552,7 @@ const productCategories = {
 
 // PRODUCT CATEGORY FILTER START
 
-document.addEventListener("click", function(event) {
-  const categoryButton = event.target.closest(".products-dropdown button[data-category]");
 
-  if (!categoryButton) return;
-
-  const selectedCategory = categoryButton.dataset.category;
-  const cards = document.querySelectorAll("#productGrid .product-card");
-
-  cards.forEach(function(card) {
-    card.hidden = (
-      selectedCategory !== "all" &&
-      card.dataset.category !== selectedCategory
-    );
-  });
-
-  document.getElementById("products").scrollIntoView({
-    behavior: "smooth"
-  });
-});
-
-
-// PRODUCT CATEGORY FILTER END
 
 function assetPath(path) {
   try {
@@ -6729,10 +6708,6 @@ modal.classList.add("show");
 });
 });
 
-  // HIDE ALL PRODUCTS WHEN PAGE LOADS
-document.querySelectorAll("#productGrid .product-card").forEach(function(card) {
-  card.hidden = true;
-});
   let selectedCategory = null;
 function scrollProductGallery(direction) {
   const imageWidth = modalThumbnails.clientWidth;
