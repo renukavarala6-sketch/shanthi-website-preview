@@ -7407,7 +7407,10 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!button) return;
 
     activeCategory = button.dataset.category;
-
+document.getElementById("products").scrollIntoView({
+  behavior: "smooth",
+  block: "start"
+});
     if (searchInput) {
       searchInput.value = "";
     }
