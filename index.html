@@ -6355,6 +6355,7 @@ header nav {
   </div>
 </div>
 
+<!--
 <script>
 const products = [
   
@@ -6550,28 +6551,28 @@ const productCategories = {
   "Wind Sock": "emergency"
 };
 
-// Category button click functionality
-const categoryDropdown = document.querySelector(".products-dropdown");
+// PRODUCT CATEGORY FILTER START
 
-if (categoryDropdown) {
-  categoryDropdown.addEventListener("click", function(event) {
-    const categoryButton = event.target.closest("button[data-category]");
+document.addEventListener("click", function(event) {
+  const categoryButton = event.target.closest(".products-dropdown button[data-category]");
 
-    if (!categoryButton) return;
+  if (!categoryButton) return;
 
-    const selectedCategory = categoryButton.dataset.category;
+  const selectedCategory = categoryButton.dataset.category;
+  const cards = document.querySelectorAll("#productGrid .product-card");
 
-    document.querySelectorAll("#productGrid .product-card").forEach(function(card) {
-      card.hidden =
-        selectedCategory !== "all" &&
-        card.dataset.category !== selectedCategory;
-    });
-
-    document.getElementById("products").scrollIntoView({
-      behavior: "smooth"
-    });
+  cards.forEach(function(card) {
+    card.hidden = (
+      selectedCategory !== "all" &&
+      card.dataset.category !== selectedCategory
+    );
   });
-}
+
+  document.getElementById("products").scrollIntoView({
+    behavior: "smooth"
+  });
+});
+
 
 // PRODUCT CATEGORY FILTER END
 
