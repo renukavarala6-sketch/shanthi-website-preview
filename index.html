@@ -5769,10 +5769,9 @@ header nav {
 
 
 /* PRODUCT CATEGORY FILTER VISIBILITY FIX */
-#productGrid .product-card[hidden] {
+#products #productGrid .product-card[hidden] {
   display: none !important;
 }
-
 
   
   </style>
@@ -7357,7 +7356,72 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
+<!-- FINAL PRODUCT CATEGORY FILTER START -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const grid = document.getElementById("productGrid");
+  const searchInput = document.getElementById("productSearch");
 
+  if (!grid) return;
+
+  let activeCategory = null;
+
+  const cards = Array.from(
+    grid.querySelectorAll(".product-card")
+  );
+
+  function applyProductFilters() {
+    const searchText = searchInput
+      ? searchInput.value.trim().toLowerCase()
+      : "";
+
+    cards.forEach(function (card) {
+      const categoryMatch =
+        activeCategory !== null &&
+        (
+          activeCategory === "all" ||
+          card.dataset.category === activeCategory
+        );
+
+      const searchMatch =
+        card.textContent.toLowerCase().includes(searchText);
+
+      card.hidden = !(categoryMatch && searchMatch);
+      card.style.removeProperty("display");
+    });
+  }
+
+  // Hide all products when the page first opens
+  applyProductFilters();
+
+  // Handle category selection
+  document.addEventListener("click", function (event) {
+    const target = event.target instanceof Element
+      ? event.target
+      : null;
+
+    const button = target
+      ? target.closest(".products-dropdown button[data-category]")
+      : null;
+
+    if (!button) return;
+
+    activeCategory = button.dataset.category;
+
+    if (searchInput) {
+      searchInput.value = "";
+    }
+
+    applyProductFilters();
+  });
+
+  // Search only inside the selected category
+  if (searchInput) {
+    searchInput.addEventListener("input", applyProductFilters);
+  }
+});
+</script>
+<!-- FINAL PRODUCT CATEGORY FILTER END -->
 
 
 
