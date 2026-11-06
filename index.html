@@ -6728,7 +6728,11 @@ modal.classList.add("show");
 
 });
 });
-  
+
+  // HIDE ALL PRODUCTS WHEN PAGE LOADS
+document.querySelectorAll("#productGrid .product-card").forEach(function(card) {
+  card.hidden = true;
+});
 function scrollProductGallery(direction) {
   const imageWidth = modalThumbnails.clientWidth;
 
